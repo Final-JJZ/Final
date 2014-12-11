@@ -9,8 +9,11 @@ int main(int argc,char *argv[]) {
     
     FILE *f = fopen("uroboros.java", "w");
     
-    const char* c = "%CCODE%"
+    const char* c = "%CCODE%";
+    const char* cpp = "%CPPCODE%";
     const char* java = "%JAVACODE%";
+    const char* python = "%PYTHONCODE%";
+    
     fprintf(f, java);
     
     fclose(f);
