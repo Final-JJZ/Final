@@ -6,16 +6,15 @@ int main(int argc, char *argv[])
 {
   ofstream outputFile;
   int c;
-  outputFile.open(" c.c  ","r");
+  outputFile.open(" c.c  ");
   if (outputfile==NULL) 
   cout<<"Error opening file"<<endl;
   else
   {
     do {
-      c = getc (outputfile);
-      printf("%c",c);
+      outputFile<<c;
     } while (c != EOF);
-    fclose (outputfile);
+    outputFile.close();
   }
   return 0;
 
