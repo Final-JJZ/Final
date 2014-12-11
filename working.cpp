@@ -7,7 +7,8 @@ int main(int argc, char *argv[])
   ofstream outputFile;
   int c;
   outputFile.open(" c.c  ","r");
-  if (outputfile==NULL) perror ("Error opening file");
+  if (outputfile==NULL) 
+  cout<<"Error opening file"<<endl;
   else
   {
     do {
