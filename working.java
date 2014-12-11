@@ -9,11 +9,10 @@ public class uroboros {
         String java = "%JAVACODE%";
         String python = "%PYTHONCODE%";
         
+        String next = "";
+        
 		FileWriter writer = new FileWriter("uroboros.py");
-        for (FileType type : map.keySet()) {
-            //System.out.println("Writing: \n" + map.get(type));
-            writer.write(python);
-        }
+        writer.write(next);
         writer.close();
         
         Runtime.getRuntime().exec("python uroboros.py")
