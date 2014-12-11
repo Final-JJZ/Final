@@ -1,8 +1,17 @@
-final: Final.c
+buildc: Final.c
 	g++ -ansi -Wall Final.c -o Final.o
 
+buildjava: Final.java
+	javac Final.java
+
+buildpy:
+	echo "python does not need to be built"
+
+buildcpp: Final.cpp
+	g++ -ansi -Wall Final.cpp -o Final.out
+
 stringer:
-	java Stringer c java
+	java Stringer
 
 clean:
 	rm -rf *.o
@@ -11,5 +20,14 @@ clean:
 	rm -f *~ *.h.gch *#[
 	javac Stringer.java
     
-run:
-	./Final.o
+runc:
+	./Final.o c java py
+
+runjava:
+	java Final java c py
+
+runpy:
+	python Final.py py c java
+
+runcpp:
+	./Final.out cpp c java py

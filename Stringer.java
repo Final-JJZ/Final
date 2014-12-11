@@ -6,6 +6,10 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.HashMap;
 
+/**
+ * 
+ * @author James Bilbrey (bilbrey1@umbc.edu)
+ */
 public class Stringer {
 	
 	public enum FileType {
@@ -72,14 +76,21 @@ public class Stringer {
 	public static void contents(String[] exts, HashMap<FileType, String> holder) throws FileNotFoundException, IOException {
 		
 		//System.out.println("Number of files: " + exts.length);
-		
-		for (String ext : exts) {
-			File file = new File("working." + ext);
-			//long size = Files.size(file.toPath());
-			//System.out.println("Size of " + file.getName() + ": " + size);
-			byte[] encoded = Files.readAllBytes(file.toPath());
-			holder.put(FileType.getByExt(ext), new String(encoded, Charset.defaultCharset()));
+		File files[] = (new File(".")).listFiles();
+		for (File file : files) {
+			if (file.getName().startsWith("working")) {
+				String ext = file.getName().split("\\.")[1];
+				byte[] encoded = Files.readAllBytes(file.toPath());
+				holder.put(FileType.getByExt(ext), new String(encoded, Charset.defaultCharset()));
+			}
 		}
+//		for (String ext : exts) {
+//			File file = new File("working." + ext);
+//			//long size = Files.size(file.toPath());
+//			//System.out.println("Size of " + file.getName() + ": " + size);
+//			byte[] encoded = Files.readAllBytes(file.toPath());
+//			holder.put(FileType.getByExt(ext), new String(encoded, Charset.defaultCharset()));
+//		}
 		
 		/*for(int i=0; i < exts.length; i++) {
 			File file = new File(exts[i]);

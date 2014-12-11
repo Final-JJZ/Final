@@ -64,12 +64,14 @@ int main(int argc,char *argv[]) {
         sprintf(buildcmd, "g++ -ansi -Wall %s -o uroboros.o", filename);
         sprintf(runcmd, "./uroboros.o %s", langList);
     } else if (argv[2] == "cpp") {
-        
+        sprintf(buildcmd, "g++ -ansi -Wall %s -o uroboros.o", filename);
+        sprintf(runcmd, "./uroboros.o %s", langList);
     } else if (argv[2] == "java") {
         sprintf(buildcmd, "javac %s", filename);
         sprintf(runcmd, "java uroboros %s", langList);
     } else if (argv[2] == "py") {
-        
+        sprintf(buildcmd, "");
+        sprintf(runcmd, "python %s %s", filename, langList);
     } else {
         printf("Not prepared for language: %s\n", argv[1]);
         return 1;
@@ -77,7 +79,8 @@ int main(int argc,char *argv[]) {
     
     char* next = generateContent(nextLang);
 	
-    if (argv[3] == argv[2]) {
+    // if the next lang is the starting lang, print what we would have written
+    if (argv[2] == argv[1]) {
         printf(next);
         return 0;
     }
@@ -86,7 +89,7 @@ int main(int argc,char *argv[]) {
 	fprintf(f, next);
 	fclose(f);
 	
-	system("javac uroboros.java");
-	system("java uroboros");
+	system(buildcmd);
+	system(runcmd);
 	return 0;
 }
