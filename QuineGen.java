@@ -133,7 +133,8 @@ public class QuineGen {
 	public static void oneliner(HashMap<FileType, Language> map) {
 		for (FileType key : map.keySet()) {
 			map.get(key).setOneLine(map.get(key).getOriginal().replaceAll("\"", "\\\\\\\"")
-					.replaceAll("\t", "\\t").replaceAll("\n", "\\\n"));
+					.replaceAll("\r\n", "%N").replaceAll("\t", "%T")
+					.replaceAll("\n", "%N").replaceAll("    ", "%T"));
 		}
 	}
 }

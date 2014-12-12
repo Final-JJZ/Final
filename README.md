@@ -1,7 +1,7 @@
 Final
 =====
 
-Final Project for CMSC331
+Final Project for CMSC331 (https://github.com/Final-JJZ/Final)
 James Bilbrey (bilbrey1@umbc.edu)
 Zain Syed (syed10@umbc.edu)
 John Gordon (gordon8@umbc.edu)

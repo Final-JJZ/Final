@@ -25,8 +25,6 @@ void replace_str(char *str, char *orig, const char *rep)
 }
 
 void generateContent(char* nextLang) {
-    char temp[8192];
-    strcpy(temp, nextLang);
 	char* cID;
 	char* cppID;
 	char* javaID;
@@ -35,7 +33,8 @@ void generateContent(char* nextLang) {
 	sprintf(cppID, "%s%s%s", "%", "CPPCODE", "%");
 	sprintf(javaID, "%s%s%s", "%", "JAVACODE", "%");
 	sprintf(pythonID, "%s%s%s", "%", "PYTHONCODE", "%");
-	replace_str(replace_str(replace_str(replace_str(temp, cID, c), cppID, cpp), javaID, java), pythonID, python);
+	replace_str(replace_str(replace_str(replace_str(nextLang, cID, c), cppID, cpp), javaID, java), pythonID, python);
+    replace_str(replace_str(nextLang, "%N", "\n"), "%T", "\t");
 }
 
 void generateList(char buffer[], int args, char* cmdLine[]) {
@@ -55,7 +54,7 @@ int main(int argc,char *argv[]) {
 	generateList(langList, argc, argv);
 	
 	// The following are generous estimates
-	char nextLang[2048];
+	char nextLang[8192];
 	char filename[32];
 	char buildcmd[64];
 	char runcmd[64];
@@ -64,6 +63,7 @@ int main(int argc,char *argv[]) {
 	strcat(filename, argv[2]);
 	
 	if (strcmp(argv[2], "c") == 0) {
+		strcpy
 		sprintf(buildcmd, "g++ -ansi -Wall %s -o uroboros.o", filename);
 		sprintf(runcmd, "./uroboros.o %s", langList);
 	} else if (strcmp(argv[2], "cpp") == 0) {
