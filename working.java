@@ -9,11 +9,18 @@ public class uroboros {
 		String java = "%JAVACODE%";
 		String python = "%PYTHONCODE%";
 		
-		String next = "print \"Hello World!\"";
+		String next = python;
 		
 		FileWriter writer = new FileWriter("uroboros.py");
 		writer.write(next);
 		writer.close();
+		
+		String newArgs = args[0];
+		if (args.length > 2) {
+			for () {
+			
+			}
+		}
 		
 		Runtime.getRuntime().exec("python uroboros.py")
 	}

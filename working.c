@@ -3,30 +3,42 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Author: itsme86
-// Source: http://www.linuxquestions.org/questions/programming-9/replace-a-substring-with-another-string-in-c-170076/
-char* replace_str(char *str, char *orig, char *rep)
+const char* c = "%CCODE%";
+const char* cpp = "%CPPCODE%";
+const char* java = "%JAVACODE%";
+const char* python = "%PYTHONCODE%";
+
+void replace_str(char *str, char *orig, const char *rep)
 {
-	static char buffer[4096];
+	static char buffer[8192];
 	char *p;
 
-	if(!(p = strstr(str, orig)))  // Is 'orig' even in 'str'?
-		return str;
+	if(!(p = strstr(str, orig)))
+		return;
 
-	strncpy(buffer, str, p-str); // Copy characters from 'str' start to 'orig' st$
+	strncpy(buffer, str, p-str);
 	buffer[p-str] = '\0';
 
 	sprintf(buffer+(p-str), "%s%s", rep, p+strlen(orig));
 
-	return buffer;
+	strcpy(str, buffer);
 }
 
-char* generateContent(char* nextLang) {
-	return replace_str(replace_str(replace_str(replace_str(nextLang, "%CCODE%", c), "%CPPCODE%", cpp), "%JAVACODE%", java), "%PYTHONCODE%", python);
+void generateContent(char* nextLang) {
+    char temp[8192];
+    strcpy(temp, nextLang);
+	char* cID;
+	char* cppID;
+	char* javaID;
+	char* pythonID;
+	sprintf(cID, "%s%s%s", "%", "CCODE", "%");
+	sprintf(cppID, "%s%s%s", "%", "CPPCODE", "%");
+	sprintf(javaID, "%s%s%s", "%", "JAVACODE", "%");
+	sprintf(pythonID, "%s%s%s", "%", "PYTHONCODE", "%");
+	replace_str(replace_str(replace_str(replace_str(temp, cID, c), cppID, cpp), javaID, java), pythonID, python);
 }
 
-char* generateList(int args, char* cmdLine[]) {
-	char buffer[32];
+void generateList(char buffer[], int args, char* cmdLine[]) {
 	strcpy(buffer, cmdLine[1]);
 	if (args > 3) {
 		for (int i = 3; i < args; i++) {
@@ -34,22 +46,13 @@ char* generateList(int args, char* cmdLine[]) {
 			strcat(buffer, cmdLine[i]);
 		}
 	}
-	strcat(buffer, cmdLine);
-	return buffer;
+	strcat(buffer, cmdLine[2]);
 }
 
-// Author: James Bilbrey (bilbrey1@umbc.edu)
-// Usage: ./this firstLang nextLang [otherLangs...]
 int main(int argc,char *argv[]) {
 
-	system("rm -f uroboros.*");
-	
-	const char* c = "%CCODE%";
-	const char* cpp = "%CPPCODE%";
-	const char* java = "%JAVACODE%";
-	const char* python = "%PYTHONCODE%";
-	
-	char* langList = generateList(argc, argv);
+	char langList[32];
+	generateList(langList, argc, argv);
 	
 	// The following are generous estimates
 	char nextLang[2048];
@@ -60,33 +63,33 @@ int main(int argc,char *argv[]) {
 	strcpy(filename, "uroboros.");
 	strcat(filename, argv[2]);
 	
-	if (argv[2] == "c") {
+	if (strcmp(argv[2], "c") == 0) {
 		sprintf(buildcmd, "g++ -ansi -Wall %s -o uroboros.o", filename);
 		sprintf(runcmd, "./uroboros.o %s", langList);
-	} else if (argv[2] == "cpp") {
+	} else if (strcmp(argv[2], "cpp") == 0) {
 		sprintf(buildcmd, "g++ -ansi -Wall %s -o uroboros.o", filename);
 		sprintf(runcmd, "./uroboros.o %s", langList);
-	} else if (argv[2] == "java") {
+	} else if (strcmp(argv[2], "java") == 0) {
 		sprintf(buildcmd, "javac %s", filename);
 		sprintf(runcmd, "java uroboros %s", langList);
-	} else if (argv[2] == "py") {
-		sprintf(buildcmd, "");
+	} else if (strcmp(argv[2], "py") == 0) {
+		sprintf(buildcmd, "echo");
 		sprintf(runcmd, "python %s %s", filename, langList);
 	} else {
 		printf("Not prepared for language: %s\n", argv[1]);
 		return 1;
 	}
 	
-	char* next = generateContent(nextLang);
+	generateContent(nextLang);
 	
 	// if the next lang is the starting lang, print what we would have written
-	if (argv[2] == argv[1]) {
-		printf(next);
+	if (strcmp(argv[2], argv[1]) == 0) {
+		printf(nextLang);
 		return 0;
 	}
 	
 	FILE *f = fopen(filename, "w");
-	fprintf(f, next);
+	fprintf(f, nextLang);
 	fclose(f);
 	
 	system(buildcmd);
