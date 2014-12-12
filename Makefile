@@ -17,7 +17,7 @@ runc:
 	./Final.o c java py c
 
 runjava:
-	java Final java c py java
+	java Final java c cpp py java
 
 runpy:
 	python Final.py py c java py

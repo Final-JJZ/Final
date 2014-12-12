@@ -1,15 +1,17 @@
 import sys
 
+c = "%CCODE%";
+cpp = "%CPPCODE%";
+java = "%JAVACODE%";
+python = "%PYTHONCODE%";
+
+print 'Arguments: ', sys.argv
+
 def main(argv)
 
 #TODO: Check command line arguments, if 1 and 2 are the same, it is the last file so print code for first language.
 
 print "Hello, world!"
-
-c = "%CCODE%";
-cpp = "%CPPCODE%";
-java = "%JAVACODE%";
-python = "%PYTHONCODE%";
 
 # Writing CPP code to file.
 file = open('newfile.txt', 'w')
