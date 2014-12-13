@@ -10,8 +10,8 @@ public class uroboros {
 		String java = "%JAVACODE%";
 		String python = "%PYTHONCODE%";
 		
-		String next = c.replaceAll("\n", "%N").replaceAll("\t", "%T").replaceAll("%Q", "\"");
-            next = replaceFirst("%PYTHONCODE%", python).replaceFirst("%Q", java).replaceFirst("%CPPCODE%", cpp).replaceFirst("%CCODE%", c));
+        String next = c.replaceAll("\n", "%N").replaceAll("\t", "%T").replaceAll("%Q", "\"");
+        next = next.replaceFirst("%PYTHONCODE%", python).replaceFirst("%Q", java).replaceFirst("%CPPCODE%", cpp).replaceFirst("%CCODE%", c);
 		
 		try {
             FileWriter writer = new FileWriter("uroboros.c");

@@ -64,7 +64,6 @@ int main(int argc,char *argv[]) {
 	char langList[32];
 	generateList(langList, argc, argv);
 	
-	// The following are generous estimates
 	char nextLang[8192];
 	char filename[32];
 	char buildcmd[64];

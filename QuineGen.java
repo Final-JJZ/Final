@@ -9,7 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Java master race.
+ * It should be noted that nothing this file does could not be done by hand.
+ *
+ * This should be considered a compiler and not part of the quine,
+ * as it does not execute any code,
+ * it only creates the files faster than a human could.
+ *
  * @author James Bilbrey (bilbrey1@umbc.edu)
  */
 public class QuineGen {
@@ -95,10 +100,11 @@ public class QuineGen {
 			for (FileType typeA : map.keySet()) {
 				String original = map.get(typeA).getOriginal();
 				if (FileType.JAVA.equals(typeA)) {
+                    // Curse java and its lack of dynamic filenames!
 					original = original.replaceFirst(" uroboros ", " Final ");
 				}
 				for (FileType typeB : map.keySet()) {
-					original = original.replaceAll(typeB.getReplacer(), map.get(typeB).getOneLine());
+					original = original.replaceFirst(typeB.getReplacer(), map.get(typeB).getOneLine());
 				}
 //				stringsWriter.write(typeA.name() + (typeA.name().length() < 3
 //						? ":\t\t" : ":\t") + map.get(typeA).getOneLine() + "\n");
@@ -117,11 +123,16 @@ public class QuineGen {
 		System.out.println("Operation successful.");
     }
 	
+    /**
+     * Reads files named "source", and associates them with a language based on their extension.
+     * This will break the quine and lie to the user if the source and extension do not match.
+     * Assumes each language has a single file. Incompatible with C++'s header files (.h).
+     */
 	public static void contents(HashMap<FileType, Language> map) throws IOException {
 		
 		File files[] = (new File(".")).listFiles();
 		for (File file : files) {
-			if (file.getName().startsWith("working")) {
+			if (file.getName().startsWith("source")) {
 				String ext = file.getName().split("\\.")[1];
 				byte[] encoded = Files.readAllBytes(file.toPath());
 				FileType type = FileType.getByExt(ext);
@@ -130,6 +141,17 @@ public class QuineGen {
 		}
 	}
 	
+    /**
+     * Provides a map of language files with a one-line version of each language.
+     * The original language will remain in the map.
+     * This works with both Windows and Unix line endings,
+     * and with "tabs or spaces".
+     *
+     * For java, c, and c++, I could save some processing time by simply
+     * turning the white space to spaces and not having each language
+     * put back the originals, but this took a lot of debugging,
+     * so I wanted it to be human readable.
+     */
 	public static void oneliner(HashMap<FileType, Language> map) {
 		for (FileType key : map.keySet()) {
 			map.get(key).setOneLine(map.get(key).getOriginal().replaceAll("\"", "%Q")
