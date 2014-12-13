@@ -21,9 +21,9 @@ To run the quine, enter the following commands:
 <br>$ make runX where X is an extension such as c, java
 
 To update from the latest source, run the following in a folder
-WITH NO CONTENTS OTHER THAN THIS PROJECT:
+<br>WITH NO CONTENTS OTHER THAN THIS PROJECT:
 <br>$ make update
-<br>I take no responsibility for any data lost from running that command.
+<br><br>I take no responsibility for any data lost from running that command.
 By using it you acknowledge that you have been warned of its affects,
 and agree not to hold James Bilbrey accountable for any data
 lost due to misuse.
@@ -39,18 +39,18 @@ I learned the @ trick for Makefiles at http://stackoverflow.com/questions/861079
 I was taught that for Batch files, but didn't know it worked in other systems
 
 Comments in source.java:
-Line 13: "translate to human-readable code"
-Line 14: "inject source code into the next file"
+<br>Line 13: "translate to human-readable code"
+<br>Line 14: "inject source code into the next file"
 
 Comments in source.c and source.cpp:
-Line 28: "C does not like comma declarations of pointers to characters"
-Line 28: "C is obnoxious"
-Line 35: "Compile the patterns. These are broken up incase some language tries to
+<br>Line 28: "C does not like comma declarations of pointers to characters"
+<br>Line 28: "C is obnoxious"
+<br>Line 35: "Compile the patterns. These are broken up incase some language tries to
 replace more than just the first instance of each"
-Line 42: "translate to human-readable code"
-Line 45: "inject source code into the next file"
-Line 51: "this takes the list of arguments, and reorders them for the next language"
-Line 67: "the following four lines are generous estimates"
+<br>Line 42: "translate to human-readable code"
+<br>Line 45: "inject source code into the next file"
+<br>Line 51: "this takes the list of arguments, and reorders them for the next language"
+<br>Line 67: "the following four lines are generous estimates"
 
 Comments in source.py
-Line 1: "Everything here I learned from re-reading my group's project 1"
+<br>Line 1: "Everything here I learned from re-reading my group's project 1"
