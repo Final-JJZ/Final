@@ -34,7 +34,7 @@ runpy:
 runcpp:
 	@./Final.out cpp c java py cpp
 
-download:
+update:
 	@rm Makefile
 	@wget https://github.com/Final-JJZ/Final/archive/master.zip
 	@unzip master.zip
